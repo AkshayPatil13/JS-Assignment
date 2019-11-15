@@ -10,20 +10,35 @@
     <img class="logo" src="../images/logo.png" alt="logo">
     <div class="form-container">
         <h1>Sign up to Agenda</h1>
-        <form autocomplete="on">
-            Upload Profile Picture<input type="file">
-            <input type="email" name="email" placeholder="Username/Email" autofocus required>
-            <input type="text" name="firstname" placeholder="First Name"required>
-            <input type="text" name="lastname" placeholder="Last Name" required>
-            Gender :&nbsp;<input type="radio" name="gender" value="male" checked>Male
-            <input type="radio" name="gender" value="female">Female
-            <input type="radio" name="gender" value="other">Other
-            <input type="text" name="address" placeholder="Address" required>
-            <input type="password" placeholder="Password" name="psw" required>
-            <input type="password" placeholder="Confirm Password" name="psw-repeat" required>
-            <button class="signup" onclick="">Sign Up</button>
+        <form autocomplete="off">
+            <img class="profile-image" src="../images/Profile.png" alt="Profile Image">
+            <div class="profile-upload">Upload Profile Image :<input type="file" accept="image/*"></div>
+
+            <input id="firstName" type="text" placeholder="First Name" onfocusout="validateCharactersOnly(this, 'wrongfname')" required >
+            <p  class="error" id='wrongfname'></p>
+
+            <input id="lastName" type="text" placeholder="Last Name" onfocusout="validateCharactersOnly(this, 'wronglname')" required>
+            <p  class="error" id='wronglname'></p>
+
+            <input id="userName" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')" required>
+            <p  class="error" id='wrongemail'></p>
+
+            <input id="passwd" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')" required>
+            <p  class="error" id='wrongpass'></p>
+
+            <input id="psw-repeat" type="password" placeholder="Confirm Password" onfocusout="validateconfPassword(this,'wrongconfpass')" required>
+            <p  class="error" id='wrongconfpass'></p>
+
+            Gender :&nbsp;<input type="radio" name="gender" value="male" checked><label>Male</label>
+            <input type="radio" name="gender" value="female"><label>Female</label>
+            <input type="radio" name="gender" value="other"><label>Other</label>
+
+            <input id="address" type="textarea" placeholder="Address" required>
+
+            <button class="signup" onclick="signup()">Sign Up</button>
+            <button class="signup resetData" type="reset">Reset Form</button>
         </form>
     </div>
-    
+    <script src="../JS/signup.js"></script>
 </body>
 </html>
