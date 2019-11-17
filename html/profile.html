@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Agenda | Profile</title>
+    <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
+    <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./todo.html">My ToDo Items</a></li>
+                <li><a href="./login.html">Logout</a></li>
+                <div class="clearfix"></div>
+            </ul>
+        </nav>
+        <div class="clearfix"></div>
+    </header>
+    <div class="form-container">
+        <h1 id="welcomeUser">Hello, User</h1>
+        <form>
+            <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
+            <div class="profile-upload">Profile Image :<input id="profilePicture" type="file" accept="image/*"
+                    onchange="UploadProfilePicture();" disabled>
+            </div>
+
+            <input id="fName" type="text" placeholder="First Name"
+                onfocusout="validateCharactersOnly(this, 'wrongfname')" disabled>
+            <p class="error" id='wrongfname'></p>
+
+            <input id="lName" type="text" placeholder="Last Name"
+                onfocusout="validateCharactersOnly(this, 'wronglname')" disabled>
+            <p class="error" id='wronglname'></p>
+
+            <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')"
+                disabled>
+            <p class="error" id='wrongemail'></p>
+
+            <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')"
+                disabled>
+            <p class="error" id='wrongpass'></p>
+
+            Gender :&nbsp;<input type="radio" name="gender" value="male" checked disabled><label>Male</label>
+            <input type="radio" name="gender" value="female" disabled><label>Female</label>
+            <input type="radio" name="gender" value="other" disabled><label>Other</label>
+
+            <input id="address" type="textarea" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')"
+                disabled>
+            <p class="error" id='wrongaddress'></p>
+
+            <button class="btn-style">Edit</button>
+            <button class="btn-style" disabled>Submit</button>
+            <!-- <button class="signup" type="reset">Reset Form</button> -->
+        </form>
+    </div>
+
+</body>
+
+</html>

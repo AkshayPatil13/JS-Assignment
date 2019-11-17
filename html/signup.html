@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Agenda | Sign Up</title>
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <link rel="stylesheet" href="../CSS/signup.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <img class="logo" src="../images/logo.png" alt="logo">
     <div class="form-container">
         <h1>Sign up to Agenda</h1>
-        <form autocomplete="off">
-            <img class="profile-image" src="../images/Profile.png" alt="Profile Image">
-            <div class="profile-upload">Upload Profile Image :<input type="file" accept="image/*"></div>
+        <form>
+            <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
+            <p id="mandatory" class="error">Asterisk(*) indicates mandatory fields.</p>
+            <div class="profile-upload">Upload Profile Image :<input id="profilePicture" type="file" accept="image/*"
+                    onchange="UploadProfilePicture();">
+            </div>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <input id="fName" type="text" placeholder="First Name"
+                onfocusout="validateCharactersOnly(this, 'wrongfname')" required>
+            <p class="error" id='wrongfname'></p>
 
-            <input id="firstName" type="text" placeholder="First Name" onfocusout="validateCharactersOnly(this, 'wrongfname')" required >
-            <p  class="error" id='wrongfname'></p>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <input id="lName" type="text" placeholder="Last Name"
+                onfocusout="validateCharactersOnly(this, 'wronglname')" required>
+            <p class="error" id='wronglname'></p>
 
-            <input id="lastName" type="text" placeholder="Last Name" onfocusout="validateCharactersOnly(this, 'wronglname')" required>
-            <p  class="error" id='wronglname'></p>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')"
+                required>
+            <p class="error" id='wrongemail'></p>
 
-            <input id="userName" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')" required>
-            <p  class="error" id='wrongemail'></p>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')"
+                required>
+            <p class="error" id='wrongpass'></p>
 
-            <input id="passwd" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')" required>
-            <p  class="error" id='wrongpass'></p>
-
-            <input id="psw-repeat" type="password" placeholder="Confirm Password" onfocusout="validateconfPassword(this,'wrongconfpass')" required>
-            <p  class="error" id='wrongconfpass'></p>
+            <input id="confirmPassword" type="password" placeholder="Confirm Password"
+                onfocusout="validateconfPassword(this,'wrongconfpass')" required>
+            <p class="error" id='wrongconfpass'></p>
 
             Gender :&nbsp;<input type="radio" name="gender" value="male" checked><label>Male</label>
             <input type="radio" name="gender" value="female"><label>Female</label>
             <input type="radio" name="gender" value="other"><label>Other</label>
 
-            <input id="address" type="textarea" placeholder="Address" required>
+            <input id="address" type="textarea" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')"
+                required>
+            <p class="error" id='wrongaddress'></p>
 
-            <button class="signup" onclick="signup()">Sign Up</button>
-            <button class="signup resetData" type="reset">Reset Form</button>
+            <button class="btn-style" onclick="checkMandatoryFields();">Sign Up</button>
+            <!-- <button class="signup" type="reset">Reset Form</button> -->
         </form>
     </div>
     <script src="../JS/signup.js"></script>
 </body>
+
 </html>
