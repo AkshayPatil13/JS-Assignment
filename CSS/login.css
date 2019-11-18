@@ -58,6 +58,7 @@ input[type='email'], input[type='password']{
 .login:hover{
     background-color: #45a049;
 }
+
 hr{
     margin: 25px 0;
     border: 0;
@@ -67,8 +68,17 @@ hr{
 .signup{
     color:#363f45;
 }
+
 .signup a{
     color: #0052CC;
     text-align: center;
     text-decoration: underline;
+}
+
+.error{
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    color: #d93025;
+    margin-bottom: 5px;
 }

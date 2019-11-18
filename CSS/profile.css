@@ -87,7 +87,7 @@ input[type='text'], input[type='password'], input[type='email'],input[type="text
 .error{
     width: 100%;
     font-size: 14px;
-    color: #cc0033;
+    color: #d93025;
     margin-bottom: 5px;
 }
 

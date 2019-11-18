@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Agenda | Log In</title>
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <link rel="stylesheet" href="../CSS/login.css" type="text/css">
@@ -11,12 +12,17 @@
     <div class="form-container">
         <h1>Log in into Agenda</h1>
         <form autocomplete="on">
-            <input type="email" placeholder="Enter Email">
-            <input type="password" placeholder="Enter Password">
-            <button class="login">Log In</button>
+            <span class="error" id="noRecordFound"></span>
+            <input id="email" type="email" placeholder="Enter Email Address" onfocusout="validateUserEmail(this,'wrongemail')">
+            <span class="error" id='wrongemail'></span>
+            <input id="password" type="password" placeholder="Enter Password">
+            <span class="error" id='wrongpass'></span>
+            <button type="button" class="login" onclick="validateCredentials();">Log In</button>
         </form>
         <hr>
         <p class="signup">New User ?&nbsp;&nbsp;<a href="signup.html">Sign up for an account</a></p> 
     </div>
+    <script src="../JS/inputValidation.js"></script>
+    <script src="../JS/login.js"></script>
 </body>
 </html>

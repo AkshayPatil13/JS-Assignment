@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Agenda | Sign Up</title>
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <link rel="stylesheet" href="../CSS/signup.css" type="text/css">
@@ -19,22 +20,22 @@
             <div class="profile-upload">Upload Profile Image :<input id="profilePicture" type="file" accept="image/*"
                     onchange="UploadProfilePicture();">
             </div>
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
             <input id="fName" type="text" placeholder="First Name"
                 onfocusout="validateCharactersOnly(this, 'wrongfname')" required>
             <p class="error" id='wrongfname'></p>
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
             <input id="lName" type="text" placeholder="Last Name"
                 onfocusout="validateCharactersOnly(this, 'wronglname')" required>
             <p class="error" id='wronglname'></p>
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
             <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')"
                 required>
             <p class="error" id='wrongemail'></p>
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#cc0033;position:relative;left:100%;top:3px;"></i>
+            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
             <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')"
                 required>
             <p class="error" id='wrongpass'></p>
@@ -51,10 +52,11 @@
                 required>
             <p class="error" id='wrongaddress'></p>
 
-            <button class="btn-style" onclick="checkMandatoryFields();">Sign Up</button>
-            <!-- <button class="signup" type="reset">Reset Form</button> -->
+            <button type="button" class="btn-style" onclick="checkMandatoryFields();">Sign Up</button>
+            
         </form>
     </div>
+    <script src="../JS/inputValidation.js"></script>
     <script src="../JS/signup.js"></script>
 </body>
 

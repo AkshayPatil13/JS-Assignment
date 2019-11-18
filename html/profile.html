@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Agenda | Profile</title>
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
 </head>
 
-<body>
+<body onload="showCurrentUserInfo()">
     <header>
         <nav>
             <ul>
@@ -19,7 +20,7 @@
         <div class="clearfix"></div>
     </header>
     <div class="form-container">
-        <h1 id="welcomeUser">Hello, User</h1>
+        <h1 id="welcomeUser"></h1>
         <form>
             <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
             <div class="profile-upload">Profile Image :<input id="profilePicture" type="file" accept="image/*"
@@ -50,12 +51,13 @@
                 disabled>
             <p class="error" id='wrongaddress'></p>
 
-            <button class="btn-style">Edit</button>
-            <button class="btn-style" disabled>Submit</button>
-            <!-- <button class="signup" type="reset">Reset Form</button> -->
+            <button type="button" class="btn-style" onclick="enableInputFields()">Edit</button>
+            <button id="submit" type="button" class="btn-style" onclick="updateUserData()" disabled>Submit</button>
         </form>
     </div>
 
+    <script src="../JS/inputValidation.js"></script>
+    <script src="../JS/profile.js"></script>
 </body>
 
 </html>
