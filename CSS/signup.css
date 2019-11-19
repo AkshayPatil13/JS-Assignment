@@ -43,7 +43,7 @@ body{
     /* border-radius: 50%; */
 }
 
-input[type='text'], input[type='password'], input[type='email'],input[type="textarea"], .profile-upload{
+input[type='text'], input[type='password'], input[type='email'], .profile-upload{
     width: 100%;
     font-size: 14px;
     background-color: #FAFBFC;

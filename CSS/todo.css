@@ -45,12 +45,17 @@ header ul li a:hover{
     background-color: #e64031;
 }
 
-.left{
+.left-section{
     width: 65%;
     float: left;
+    padding: 20px;
+    margin-top: 40px;
 }
 
-.right{
+.right-section{
     width: 35%;
     float: right;
+    padding: 20px 10px;
+    margin-top: 40px;
+    border-left: 2px solid black;
 }
