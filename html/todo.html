@@ -6,6 +6,7 @@
     <title>Agenda | ToDo</title>
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <link rel="stylesheet" href="../CSS/todo.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
 
 <body onload="showCurrentUserToDo()">
@@ -14,7 +15,7 @@
         <nav>
             <ul>
                 <li><a href="./profile.html">My Profile</a></li>
-                <li><a href="./login.html" onclick="closeUserSession()">Logout</a></li>
+                <li><a href="./login.html" onclick="logOutUserSession()">Logout</a></li>
                 <div class="clearfix"></div>
             </ul>
         </nav>
@@ -23,8 +24,8 @@
 
     <div class="left-section">
 
-        <label>Filter By</label>
-        <select name="filters" id="filterBy" onchange="">
+        <label>Filter By :</label>
+        <select class="filter" name="filters" id="filterBy" onchange="">
             <option value="Select">Select</option>
             <option value="Categories">Categories</option>
             <option value="Status">Status</option>
@@ -44,7 +45,7 @@
             <option value="Office">Office</option>
         </select>
 
-        <div id="dateFilters">
+        <div class="date-filters" id="dateFilters">
             <label>From :</label>
             <input type="date" id="filterStartDate" required>
 
@@ -60,15 +61,15 @@
             <button type="button" id="edit">Mark as Done</button>
         </div>
 
-        <h1 id="noDataFound">No Data Found..!!</h1>
-        <table id="todoTable" border="1">
+        <h1 id="noDataFound">No Tasks Found <br> Please add one..!!</h1>
+        <table class="todo-table" id="todoTable">
             <thead>
                 <tr>
                     <th>Select</th>
                     <th>Title</th>
                     <th>Start Date</th>
                     <th>Due Date</th>
-                    <th>is Public</th>      
+                    <th>is Public</th>
                     <th>Category</th>
                     <th>Description</th>
                     <th>Status</th>
@@ -86,8 +87,8 @@
             <label>Due Date : </label> <input id="dueDate" type="date" required><br>
 
             <div class="public">
-                    <label>is Public :</label>
-                    <input type="checkbox" id="isToDoPublic">
+                <label>is Public :</label>
+                <input type="checkbox" id="isToDoPublic">
             </div>
 
             <label>Categories :</label>
@@ -95,11 +96,11 @@
             <input type="radio" name="categories" value="Personal">Personal
             <input type="radio" name="categories" value="Office">Office
 
-            <textarea id="description"  placeholder="Add description here..."></textarea><br>
+            <textarea id="description" rows="10" placeholder="Add description here..."></textarea><br>
 
             <button type="button" id="add" onclick="addNewToDoItem()">Add</button>
             <button class="update-data" type="submit" id="save" onclick="saveChanges()">Save Changes</button>
-            <button type="reset">Reset</button>      
+            <button type="reset">Reset</button>
         </form>
     </div>
     <div class="clearfix"></div>
