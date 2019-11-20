@@ -15,7 +15,7 @@
         <nav>
             <ul>
                 <li><a href="./profile.html">My Profile</a></li>
-                <li><a href="./login.html" onclick="logOutUserSession()">Logout</a></li>
+                <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
                 <div class="clearfix"></div>
             </ul>
         </nav>
@@ -25,20 +25,20 @@
     <div class="left-section">
 
         <label>Filter By :</label>
-        <select class="filter" name="filters" id="filterBy" onchange="">
+        <select class="filter" name="filters" id="filterBy" onchange="showFurtherFilters()">
             <option value="Select">Select</option>
             <option value="Categories">Categories</option>
             <option value="Status">Status</option>
             <option value="Date">Date</option>
         </select>
 
-        <select name="filters" id="filterByStatus" onchange="">
+        <select name="filters" id="filterByStatus" onchange="filterItemsByStatus()">
             <option value="select" selected>Select</option>
-            <option value="done">isDone</option>
+            <option value="Done">isDone</option>
             <option value="pending">isPending</option>
         </select>
 
-        <select name="filters" id="filterByCategories" onchange="">
+        <select name="filters" id="filterByCategories" onchange="filterItemsByCategories()">
             <option value="select" selected>Select</option>
             <option value="Home">Home</option>
             <option value="Personal">Personal</option>
@@ -52,16 +52,17 @@
             <label>To :</label>
             <input type="date" id="filterDueDate" required>
 
-            <button type="button" id="filterByDate" onclick="">Search</button>
+            <button type="button" id="filterByDate" onclick="filterByDateRange()">Search</button>
         </div>
 
         <div id="operations">
             <button type="button" id="edit" onclick="editToDoItem()">Edit</button>
-            <button type="button" id="delete">Delete</button>
-            <button type="button" id="edit">Mark as Done</button>
+            <button type="button" id="delete" onclick="deleteToDoItem()">Delete</button>
+            <button type="button" id="markAsDone" onclick="updateToDoItemStatus()">Mark as Done</button>
         </div>
 
         <h1 id="noDataFound">No Tasks Found <br> Please add one..!!</h1>
+        <h2></h2>
         <table class="todo-table" id="todoTable">
             <thead>
                 <tr>
@@ -81,10 +82,11 @@
     </div>
 
     <div class="right-section">
-        <form>
+        <p class="error" id="alertUser"></p>
+        <form id="addToDo">
             <input type="text" placeholder="Title.." id="toDoTitle" required><br>
-            <label>Start Date : </label> <input id="startDate" type="date" required><br>
-            <label>Due Date : </label> <input id="dueDate" type="date" required><br>
+            <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
+            <label>Due Date : </label> <input id="dueDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
 
             <div class="public">
                 <label>is Public :</label>

@@ -1,3 +1,7 @@
+function logOutUserSession() {
+    sessionStorage.removeItem('activeUserId');
+    window.location = "../html/login.html";
+}
 
 function showCurrentUserInfo(){
     if((localStorage.getItem('registeredUserRecord') === null) || (sessionStorage.getItem('activeUserId') === null)){
@@ -7,7 +11,7 @@ function showCurrentUserInfo(){
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     
-    // document.getElementById('welcomeUser').innerHTML = `Hello, ${tempArray[currentUser].userFirstName}`;
+   
     document.getElementById('fName').value = tempArray[currentUser].userFirstName;
     document.getElementById('lName').value = tempArray[currentUser].userLastName;
     document.getElementById('email').value = tempArray[currentUser].userEmail;

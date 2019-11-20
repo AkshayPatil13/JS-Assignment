@@ -4,6 +4,18 @@ function logOutUserSession() {
     window.location = "../html/login.html";
 }
 
+function disablePreviousDates(elementId){
+    let dateInput = document.getElementById(elementId);
+ 
+    const cur_date = new Date();
+    const cur_month = cur_date.getMonth() > 9 ? cur_date.getMonth() + 1 : '0' + (cur_date.getMonth() + 1);
+    const cur_day = cur_date.getDate() > 9 ? cur_date.getDate() : '0' + cur_date.getDate();
+ 
+    const dateStr = cur_date.getFullYear() + '-' + cur_month + '-' + cur_day;
+ 
+    dateInput.setAttribute('min', dateStr);
+}
+
 function addNewToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
@@ -20,27 +32,27 @@ function addNewToDoItem() {
     let tempdueDate = new Date(dDate);
 
     if (title == "") {
-        alert("Please enter Title for ToDo Item..!!")
+        document.getElementById('alertUser').innerHTML = "Please enter Title for ToDo Item..!!";
         return;
     }
 
     if (sDate == "") {
-        alert("Please set the start date..!!");
+        document.getElementById('alertUser').innerHTML = "Please set the start date..!!";
         return;
     }
 
     if (dDate == "") {
-        alert("Please set the due date..!!");
+        document.getElementById('alertUser').innerHTML = "Please set the due date..!!";
         return;
     }
 
     if (tempdueDate.getTime() < tempstartDate.getTime()) {
-        alert("Due date should come after the start date..!!");
+        document.getElementById('alertUser').innerHTML = "Due date should come after the start date..!!";
         return;
     }
 
     if (todoDescription == "") {
-        alert("Please enter the description for ToDo Item..!!");
+        document.getElementById('alertUser').innerHTML = "Please enter the description for ToDo Item..!!";
         return;
     }
 
@@ -54,7 +66,7 @@ function addNewToDoItem() {
         'catogory': categoryType,
         'description': todoDescription,
         'status': 'pending',
-        'id': new Date().getTime()
+        // 'id': new Date().getTime()
     }
 
     tempArray[currentUser].userToDo.push(ToDoItem);
@@ -68,7 +80,7 @@ function addNewToDoItem() {
 
     clearToDoTable();
     printToDoTable(tempArray[currentUser].userToDo);
-    document.getElementById("add_todo").reset();
+    document.getElementById("addToDo").reset();
 }
 
 function clearToDoTable() {
@@ -85,7 +97,7 @@ function clearToDoTable() {
 function printToDoTable(arr) {
     for (let i = 0; i < arr.length; i++) {
         let newToDoItem = document.createElement("tr");
-        newToDoItem.setAttribute("id", "row-" + arr[i].id);
+        // newToDoItem.setAttribute("id", "row-" + arr[i].id);
         newToDoItem.innerHTML = "<td>" + "<input name='selectedItem' type='checkbox' value='yes' id='checkbox-" + arr[i].id + "' </td>" +
             "<td>" + arr[i].title + "</td>" +
             "<td>" + arr[i].startDate + "</td>" +
@@ -116,16 +128,17 @@ function showCurrentUserToDo() {
 
 }
 
+
 function editToDoItem() {
 
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = tempArray[currentUser].userToDo;
     let selectedItemArray = document.getElementsByName('selectedItem');
 
     let flag = 0;
     let index = 0;
     let editItem = 0;
+    
 
     for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
 
@@ -162,7 +175,8 @@ function editToDoItem() {
 
             document.getElementById('description').value = tempArray[currentUser].userToDo[editItem].description;
             document.getElementById('add').style.display = "none";
-            document.getElementById("delete").disabled = true;
+            document.getElementById('delete').disabled = true;
+            document.getElementById('markAsDone').disabled = true;
             document.getElementById('save').style.display = "inline-block";
             sessionStorage.setItem('EditedItemIndex', editItem);
 
@@ -207,4 +221,132 @@ function saveChanges() {
     tempArray[currentUser].userToDo[index].description = document.getElementById('description').value;
     localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
     sessionStorage.removeItem('EditedItemIndex');
+}
+
+function updateToDoItemStatus(){
+    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let selectedItemArray = document.getElementsByName('selectedItem');
+
+    let flag = 0;
+    let index = 0;
+    let selectedItem = 0;
+
+    for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+
+        if (selectedItemArray[index].checked === true) {
+            flag++;
+            selectedItem = index;
+            tempArray[currentUser].userToDo[selectedItem].status = "Done";
+        }
+    }
+    
+   if (flag == 0){
+        alert('Please select a Todo Item to update its Status..!!');
+    }
+
+    else{
+        localStorage.setItem('registeredUserRecord',JSON.stringify(tempArray));
+        window.location.reload();
+    }
+
+}
+
+function deleteToDoItem(){
+    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let selectedItemArray = document.getElementsByName('selectedItem');
+
+    let flag = 0;
+    let index = 0;
+    let selectedItem = 0;
+
+    for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+
+        if (selectedItemArray[index].checked === true) {
+            flag++;
+            selectedItem = index;
+            tempArray[currentUser].userToDo.splice(selectedItem,1);
+        }
+    }
+
+    if (flag == 0){
+        alert('Please select a Todo Item to delete..!!');
+    }
+
+    else{
+        localStorage.setItem('registeredUserRecord',JSON.stringify(tempArray));
+        window.location.reload();
+    }
+
+}
+
+function showFurtherFilters(){
+
+    let filterType = document.getElementById('filterByStatus');
+    let filterName = filterType.options[filterType.selectedIndex].value;
+
+    if(filterName == "Categories"){
+        document.getElementById('filterByCategories').display = "inline-block";
+    }
+}
+
+function filterItemsByStatus(){
+    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let itemsToDisplay = new Array();
+
+    let filterType = document.getElementById('filterByStatus');
+    let filterName = filterType.options[filterType.selectedIndex].value;
+
+    for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+        if(tempArray[currentUser].userToDo[index].status == filterName){
+            itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+        }
+    }
+    clearToDoTable();
+    printToDoTable(itemsToDisplay);   
+}
+
+ function filterItemsByCategories(){
+    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let itemsToDisplay = new Array();
+
+    let filterType = document.getElementById('filterByCategories');
+    let filterName = filterType.options[filterType.selectedIndex].value;
+
+    for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+        if(tempArray[currentUser].userToDo[index].catogory == filterName){
+            itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+        }
+    }
+    clearToDoTable();
+    printToDoTable(itemsToDisplay); 
+}
+
+function filterByDateRange(){
+
+    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let tempToDoArray = tempArray[currentUser].userToDo;
+
+    let sDate = document.getElementById('filterStartDate').value;
+    let dDate = document.getElementById('filterDueDate').value;
+    let itemsToDisplay = new Array();
+
+    let tempstartDate = new Date(sDate);
+    let tempdueDate = new Date(dDate);
+
+
+    for (let index = (tempToDoArray.length - 1); index >= 0; index--) {
+
+        let todoStartDate = new Date(tempToDoArray[index].startDate);
+
+        if((todoStartDate.getTime() >= tempstartDate.getTime()) && (todoStartDate.getTime() <= tempdueDate.getTime())){
+            itemsToDisplay.push(tempToDoArray[index]);
+        }
+    }
+        clearToDoTable();
+        printToDoTable(itemsToDisplay);     
 }

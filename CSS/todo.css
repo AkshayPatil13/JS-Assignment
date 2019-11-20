@@ -82,9 +82,9 @@ table.todo-table thead th{
     background-color: #e0e0e0;
 }
 
-table.todo-table tbody tr{
+/* table.todo-table tbody tr{
     background-color: #4bae4f;
-}
+} */
 
 table.todo-table td:nth-of-type(7){
     width: 50px;
@@ -101,7 +101,7 @@ button[type="button"], button[type="submit"] , button[type="reset"]{
 }
 
 select[id="filterByStatus"], select[id="filterByCategories"]{
-    /* display: none; */
+    display: none;
 }
 
 .date-filters{
@@ -171,4 +171,11 @@ input[name="selectedItem"]{
 
 .right-section button[type="submit"]{
    display: none;
+}
+
+.error{
+    width: 100%;
+    font-size: 16px;
+    color: #d93025;
+    margin-bottom: 5px;
 }
