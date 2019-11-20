@@ -45,7 +45,7 @@
             <option value="Office">Office</option>
         </select>
 
-        <div class="date-filters" id="dateFilters">
+        <div class="date-filters" id="filterByDate">
             <label>From :</label>
             <input type="date" id="filterStartDate" required>
 
@@ -61,8 +61,7 @@
             <button type="button" id="markAsDone" onclick="updateToDoItemStatus()">Mark as Done</button>
         </div>
 
-        <h1 id="noDataFound">No Tasks Found <br> Please add one..!!</h1>
-        <h2></h2>
+        <h1 id="noDataFound">No Data Found..!!</h1>
         <table class="todo-table" id="todoTable">
             <thead>
                 <tr>
@@ -85,8 +84,10 @@
         <p class="error" id="alertUser"></p>
         <form id="addToDo">
             <input type="text" placeholder="Title.." id="toDoTitle" required><br>
-            <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
-            <label>Due Date : </label> <input id="dueDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
+            <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)"
+                required><br>
+            <label>Due Date : </label> <input id="dueDate" type="date" onclick="disablePreviousDates(this.id)"
+                required><br>
 
             <div class="public">
                 <label>is Public :</label>

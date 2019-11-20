@@ -4,18 +4,25 @@ function logOutUserSession() {
     window.location = "../html/login.html";
 }
 
-function disablePreviousDates(elementId){
+function disablePreviousDates(elementId) {
     let dateInput = document.getElementById(elementId);
- 
+
     const cur_date = new Date();
     const cur_month = cur_date.getMonth() > 9 ? cur_date.getMonth() + 1 : '0' + (cur_date.getMonth() + 1);
     const cur_day = cur_date.getDate() > 9 ? cur_date.getDate() : '0' + cur_date.getDate();
- 
+
     const dateStr = cur_date.getFullYear() + '-' + cur_month + '-' + cur_day;
- 
+
     dateInput.setAttribute('min', dateStr);
 }
 
+function checkEmptyList(arr) {
+    if (arr.length == 0) {
+
+        document.getElementById('todoTable').style.display = "none";
+        document.getElementById('noDataFound').style.display = "block";
+    }
+}
 function addNewToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
@@ -124,6 +131,7 @@ function showCurrentUserToDo() {
     let currentUser = sessionStorage.getItem('activeUserId');
     let tempToDoArray = tempArray[currentUser].userToDo;
 
+    checkEmptyList(tempToDoArray);
     printToDoTable(tempToDoArray);
 
 }
@@ -138,7 +146,7 @@ function editToDoItem() {
     let flag = 0;
     let index = 0;
     let editItem = 0;
-    
+
 
     for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
 
@@ -223,7 +231,7 @@ function saveChanges() {
     sessionStorage.removeItem('EditedItemIndex');
 }
 
-function updateToDoItemStatus(){
+function updateToDoItemStatus() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let selectedItemArray = document.getElementsByName('selectedItem');
@@ -240,19 +248,19 @@ function updateToDoItemStatus(){
             tempArray[currentUser].userToDo[selectedItem].status = "Done";
         }
     }
-    
-   if (flag == 0){
+
+    if (flag == 0) {
         alert('Please select a Todo Item to update its Status..!!');
     }
 
-    else{
-        localStorage.setItem('registeredUserRecord',JSON.stringify(tempArray));
+    else {
+        localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
         window.location.reload();
     }
 
 }
 
-function deleteToDoItem(){
+function deleteToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let selectedItemArray = document.getElementsByName('selectedItem');
@@ -266,32 +274,48 @@ function deleteToDoItem(){
         if (selectedItemArray[index].checked === true) {
             flag++;
             selectedItem = index;
-            tempArray[currentUser].userToDo.splice(selectedItem,1);
+            tempArray[currentUser].userToDo.splice(selectedItem, 1);
         }
     }
 
-    if (flag == 0){
+    if (flag == 0) {
         alert('Please select a Todo Item to delete..!!');
     }
 
-    else{
-        localStorage.setItem('registeredUserRecord',JSON.stringify(tempArray));
-        window.location.reload();
+    else {
+        localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
+        // window.location.reload();
+        clearToDoTable();
+        printToDoTable(tempArray);
+        checkEmptyList(tempArray[currentUser].userToDo);
     }
 
 }
 
-function showFurtherFilters(){
+function showFurtherFilters() {
 
-    let filterType = document.getElementById('filterByStatus');
+    let filterType = document.getElementById('filterBy');
     let filterName = filterType.options[filterType.selectedIndex].value;
 
-    if(filterName == "Categories"){
-        document.getElementById('filterByCategories').display = "inline-block";
+    if (filterName == "Categories") {
+        setFilterValues("inline-block", "none", "none");
+    }
+    else if (filterName == "Status") {
+        setFilterValues("none", "inline-block", "none");
+    }
+
+    else if (filterName == "Date") {
+        setFilterValues("none", "none", "inline-block");
     }
 }
 
-function filterItemsByStatus(){
+function setFilterValues(category, status, date) {
+    document.getElementById('filterByCategories').style.display = category;
+    document.getElementById('filterByStatus').style.display = status;
+    document.getElementById('filterByDate').style.display = date;
+}
+
+function filterItemsByStatus() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let itemsToDisplay = new Array();
@@ -300,15 +324,15 @@ function filterItemsByStatus(){
     let filterName = filterType.options[filterType.selectedIndex].value;
 
     for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
-        if(tempArray[currentUser].userToDo[index].status == filterName){
+        if (tempArray[currentUser].userToDo[index].status == filterName) {
             itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
         }
     }
     clearToDoTable();
-    printToDoTable(itemsToDisplay);   
+    printToDoTable(itemsToDisplay);
 }
 
- function filterItemsByCategories(){
+function filterItemsByCategories() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let itemsToDisplay = new Array();
@@ -317,15 +341,15 @@ function filterItemsByStatus(){
     let filterName = filterType.options[filterType.selectedIndex].value;
 
     for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
-        if(tempArray[currentUser].userToDo[index].catogory == filterName){
+        if (tempArray[currentUser].userToDo[index].catogory == filterName) {
             itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
         }
     }
     clearToDoTable();
-    printToDoTable(itemsToDisplay); 
+    printToDoTable(itemsToDisplay);
 }
 
-function filterByDateRange(){
+function filterByDateRange() {
 
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
@@ -343,10 +367,10 @@ function filterByDateRange(){
 
         let todoStartDate = new Date(tempToDoArray[index].startDate);
 
-        if((todoStartDate.getTime() >= tempstartDate.getTime()) && (todoStartDate.getTime() <= tempdueDate.getTime())){
+        if ((todoStartDate.getTime() >= tempstartDate.getTime()) && (todoStartDate.getTime() <= tempdueDate.getTime())) {
             itemsToDisplay.push(tempToDoArray[index]);
         }
     }
-        clearToDoTable();
-        printToDoTable(itemsToDisplay);     
+    clearToDoTable();
+    printToDoTable(itemsToDisplay);
 }

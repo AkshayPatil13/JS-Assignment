@@ -58,6 +58,13 @@ input, textarea , select{
     margin-bottom: 40px;
 }
 
+.left-section h1{
+    font-size: 40px;
+    color:  #C70039;
+    text-align: center;
+    margin-top: 30px;
+    display: none;
+}
 .left-section select , .left-section input[type="date"]{
     border-radius: 5px;
     padding: 5px 10px;
@@ -106,6 +113,7 @@ select[id="filterByStatus"], select[id="filterByCategories"]{
 
 .date-filters{
     margin-left: 80px;
+    display: none;
 }
 
 thead th , tbody td{
