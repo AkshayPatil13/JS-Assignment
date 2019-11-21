@@ -73,7 +73,6 @@ function addNewToDoItem() {
         'catogory': categoryType,
         'description': todoDescription,
         'status': 'pending',
-        // 'id': new Date().getTime()
     }
 
     tempArray[currentUser].userToDo.push(ToDoItem);
@@ -104,7 +103,6 @@ function clearToDoTable() {
 function printToDoTable(arr) {
     for (let i = 0; i < arr.length; i++) {
         let newToDoItem = document.createElement("tr");
-        // newToDoItem.setAttribute("id", "row-" + arr[i].id);
         newToDoItem.innerHTML = "<td>" + "<input name='selectedItem' type='checkbox' value='yes' id='checkbox-" + arr[i].id + "' </td>" +
             "<td>" + arr[i].title + "</td>" +
             "<td>" + arr[i].startDate + "</td>" +
@@ -112,7 +110,6 @@ function printToDoTable(arr) {
             "<td>" + arr[i].isPublic + "</td>" +
             "<td>" + arr[i].catogory + "</td>" +
             "<td>" + arr[i].description + "</td>" +
-            // "<td>" + "<button class='read-todo' id='view-" + arr[i].id + "' onclick='readDesc(" + i + ")'>View</button" + "</td>" +
             "<td>" + arr[i].status + "</td>"
 
         document.getElementById("todoBody").appendChild(newToDoItem);
@@ -284,10 +281,7 @@ function deleteToDoItem() {
 
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
-        // window.location.reload();
-        clearToDoTable();
-        printToDoTable(tempArray);
-        checkEmptyList(tempArray[currentUser].userToDo);
+        window.location.reload();
     }
 
 }
@@ -362,6 +356,10 @@ function filterByDateRange() {
     let tempstartDate = new Date(sDate);
     let tempdueDate = new Date(dDate);
 
+    if (tempdueDate.getTime() < tempstartDate.getTime()) {
+        document.getElementById('filterError').innerHTML = "Due date should come after the start date..!!";
+        return;
+    }
 
     for (let index = (tempToDoArray.length - 1); index >= 0; index--) {
 
