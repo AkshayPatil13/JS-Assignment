@@ -53,24 +53,28 @@ function updateUserData(){
     let genderType = document.querySelector('input[name="gender"]:checked').value;
     let address = document.getElementById("address").value;
 
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
-    let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = tempArray[currentUser].userToDo;
+    if((firstName == "") || (lastName == "") || (passwd == "") || (address == "")){
+        alert("Please fill out all the Fields..!!");
+        return false;
+    }
+    else{
+        let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+        let currentUser = sessionStorage.getItem('activeUserId');
+        let tempToDoArray = tempArray[currentUser].userToDo;
 
-    tempArray[currentUser].userFirstName = firstName;
-    tempArray[currentUser].userLastName = lastName;
-    tempArray[currentUser].userPassword = btoa(passwd);
-    tempArray[currentUser].userGender = genderType;
-    tempArray[currentUser].UserAddress = address;
-    tempArray[currentUser].userToDo = tempToDoArray;
-    tempArray[currentUser].displayPicture = sessionStorage.displayPicture;
+        tempArray[currentUser].userFirstName = firstName;
+        tempArray[currentUser].userLastName = lastName;
+        tempArray[currentUser].userPassword = btoa(passwd);
+        tempArray[currentUser].userGender = genderType;
+        tempArray[currentUser].UserAddress = address;
+        tempArray[currentUser].userToDo = tempToDoArray;
+        tempArray[currentUser].displayPicture = sessionStorage.displayPicture;
 
-    localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
-    alert('Your changes has been saved successfully..!!');
-    sessionStorage.removeItem('displayPicture');
-    window.location.reload();
-
-
+        localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
+        alert('Your changes has been saved successfully..!!');
+        sessionStorage.removeItem('displayPicture');
+        window.location.reload();
+    }
 
 }
 

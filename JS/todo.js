@@ -23,6 +23,7 @@ function checkEmptyList(arr) {
         document.getElementById('noDataFound').style.display = "block";
     }
 }
+
 function addNewToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
@@ -243,6 +244,7 @@ function updateToDoItemStatus() {
             flag++;
             selectedItem = index;
             tempArray[currentUser].userToDo[selectedItem].status = "Done";
+            // document.getElementById('todoTable').rows[index].style.backgroundColor = "#4bae4f";
         }
     }
 
@@ -317,13 +319,12 @@ function filterItemsByStatus() {
     let filterType = document.getElementById('filterByStatus');
     let filterName = filterType.options[filterType.selectedIndex].value;
 
-    for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
-        if (tempArray[currentUser].userToDo[index].status == filterName) {
-            itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+        for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+            if (tempArray[currentUser].userToDo[index].status == filterName) {
+                itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+            }
         }
-    }
-    clearToDoTable();
-    printToDoTable(itemsToDisplay);
+        filterResultData(itemsToDisplay);  
 }
 
 function filterItemsByCategories() {
@@ -339,8 +340,8 @@ function filterItemsByCategories() {
             itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
         }
     }
-    clearToDoTable();
-    printToDoTable(itemsToDisplay);
+    
+    filterResultData(itemsToDisplay);
 }
 
 function filterByDateRange() {
@@ -369,6 +370,18 @@ function filterByDateRange() {
             itemsToDisplay.push(tempToDoArray[index]);
         }
     }
-    clearToDoTable();
-    printToDoTable(itemsToDisplay);
+    filterResultData(itemsToDisplay);
+}
+
+function filterResultData(arr){
+    if(arr.length == 0){
+        document.getElementById('todoTable').style.display = "none";
+        document.getElementById('noDataFound').style.display = "block";
+    }
+    else{
+        document.getElementById('todoTable').style.display = "inline-table";
+        document.getElementById('noDataFound').style.display = "none";
+        clearToDoTable();
+        printToDoTable(arr);
+    }
 }
