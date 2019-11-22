@@ -41,7 +41,7 @@ header ul li a{
     margin-left: 10px;
 }
 
-header ul li a:hover{
+header a:hover{
     background-color: #E11B22;
 }
 
@@ -97,7 +97,8 @@ table.todo-table td:nth-of-type(7){
     width: 50px;
 }
 
-button[type="button"], button[type="submit"] , button[type="reset"]{
+/* button[type="button"], button[type="submit"] , button[type="reset"]{ */
+.edit, .delete, .mark-as-done, .add, .reset, .update-data{
     background-color: #E11B22;
     border: none;
     cursor: pointer;
@@ -107,12 +108,21 @@ button[type="button"], button[type="submit"] , button[type="reset"]{
     color: #FFFFFF;
 }
 
+.search{
+    background-color: #E11B22;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: #FFFFFF;
+}
+
 select[id="filterByStatus"], select[id="filterByCategories"]{
     display: none;
 }
 
 .date-filters{
-    margin-left: 80px;
+    /* margin-left: 80px; */
     display: none;
 }
 

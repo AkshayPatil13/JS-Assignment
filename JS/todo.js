@@ -16,13 +16,13 @@ function disablePreviousDates(elementId) {
     dateInput.setAttribute('min', dateStr);
 }
 
-function checkEmptyList(arr) {
-    if (arr.length == 0) {
+// function checkEmptyList(arr) {
+//     if (arr.length == 0) {
 
-        document.getElementById('todoTable').style.display = "none";
-        document.getElementById('noDataFound').style.display = "block";
-    }
-}
+//         document.getElementById('todoTable').style.display = "none";
+//         document.getElementById('noDataFound').style.display = "block";
+//     }
+// }
 
 function addNewToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
@@ -129,9 +129,15 @@ function showCurrentUserToDo() {
     let currentUser = sessionStorage.getItem('activeUserId');
     let tempToDoArray = tempArray[currentUser].userToDo;
 
-    checkEmptyList(tempToDoArray);
-    printToDoTable(tempToDoArray);
-
+    if(tempToDoArray.length == 0){
+        document.getElementById('todoTable').style.display = "none";
+        document.getElementById('noDataFound').style.display = "block";
+    }
+    else{
+        clearToDoTable();
+        printToDoTable(tempToDoArray);
+    }
+    // checkEmptyList(tempToDoArray);
 }
 
 
@@ -232,6 +238,7 @@ function saveChanges() {
 function updateToDoItemStatus() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
+    let tempToDoArray = tempArray[currentUser].userToDo;
     let selectedItemArray = document.getElementsByName('selectedItem');
 
     let flag = 0;
@@ -254,7 +261,9 @@ function updateToDoItemStatus() {
 
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
-        window.location.reload();
+        // window.location.reload();
+        clearToDoTable();
+        printToDoTable(tempToDoArray);
     }
 
 }
@@ -263,6 +272,7 @@ function deleteToDoItem() {
     let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let selectedItemArray = document.getElementsByName('selectedItem');
+    let tempToDoArray = tempArray[currentUser].userToDo;
 
     let flag = 0;
     let index = 0;
@@ -283,7 +293,9 @@ function deleteToDoItem() {
 
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
-        window.location.reload();
+        // window.location.reload();
+        clearToDoTable();
+        printToDoTable(tempToDoArray);
     }
 
 }
@@ -361,6 +373,7 @@ function filterByDateRange() {
         document.getElementById('filterError').innerHTML = "Due date should come after the start date..!!";
         return;
     }
+    document.getElementById('filterError').innerHTML = "";
 
     for (let index = (tempToDoArray.length - 1); index >= 0; index--) {
 
@@ -384,4 +397,17 @@ function filterResultData(arr){
         clearToDoTable();
         printToDoTable(arr);
     }
+}
+
+function showDashboard(){
+    // window.location.reload();
+    document.getElementById('filterBy').selectedIndex = 0;
+    document.getElementById('filterByStatus').selectedIndex = 0 ;
+    document.getElementById('filterByCategories').selectedIndex = 0;
+    document.getElementById('filterByStatus').style.display = "none";
+    document.getElementById('filterByCategories').style.display = "none"; 
+    document.getElementById("addToDo").reset();
+    document.getElementById('todoTable').style.display = "inline-table";
+    document.getElementById('noDataFound').style.display = "none";
+
 }

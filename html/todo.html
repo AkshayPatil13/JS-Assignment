@@ -11,9 +11,9 @@
 
 <body onload="showCurrentUserToDo()">
     <header>
-        <h1>My To Do List</h1>
         <nav>
             <ul>
+                <li><a href='javascript:;' onclick="showDashboard(); showCurrentUserToDo();">My ToDo List</a></li>
                 <li><a href="./profile.html">My Profile</a></li>
                 <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
                 <div class="clearfix"></div>
@@ -52,13 +52,13 @@
             <label>To :</label>
             <input type="date" id="filterDueDate" required>
 
-            <button type="button" id="filterByDate" onclick="filterByDateRange()">Search</button>
+            <button type="button" id="filterByDate" class="search" onclick="filterByDateRange()">Search</button>
         </div>
 
         <div id="operations">
-            <button type="button" id="edit" onclick="editToDoItem()">Edit</button>
-            <button type="button" id="delete" onclick="deleteToDoItem()">Delete</button>
-            <button type="button" id="markAsDone" onclick="updateToDoItemStatus()">Mark as Done</button>
+            <button type="button" id="edit" class="edit" onclick="editToDoItem()">Edit</button>
+            <button type="button" id="delete" class="delete" onclick="deleteToDoItem()">Delete</button>
+            <button type="button" id="markAsDone" class="mark-as-done" onclick="updateToDoItemStatus()">Mark as Done</button>
         </div>
 
         <h1 id="noDataFound">No Data Found..!!</h1>
@@ -81,7 +81,7 @@
     </div>
 
     <div class="right-section">
-        <p class="error" id="alertUser"></p>
+        <span class="error" id="alertUser"></span>
         <form id="addToDo">
             <input type="text" placeholder="Title.." id="toDoTitle" required><br>
             <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)"
@@ -101,9 +101,9 @@
 
             <textarea id="description" rows="10" placeholder="Add description here..."></textarea><br>
 
-            <button type="button" id="add" onclick="addNewToDoItem()">Add</button>
+            <button type="button" id="add" class="add" onclick="addNewToDoItem()">Add</button>
             <button class="update-data" type="submit" id="save" onclick="saveChanges()">Save Changes</button>
-            <button type="reset">Reset</button>
+            <button type="reset" class="reset">Reset</button>
         </form>
     </div>
     <div class="clearfix"></div>
