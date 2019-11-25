@@ -65,9 +65,9 @@ function addNewToDoItem() {
 
         document.getElementById('alertUser').innerHTML = "";
 
-        let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+        let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
         let currentUser = sessionStorage.getItem('activeUserId');
-        let tempToDoArray = tempArray[currentUser].userToDo;
+        let tempToDoArray = userRecord[currentUser].userToDo;
 
         isToDoPublic = isToDoPublic === true ? "Yes" : "No";
 
@@ -82,9 +82,9 @@ function addNewToDoItem() {
             'id' : new Date().getTime()
         }
     
-        tempArray[currentUser].userToDo.push(ToDoItem);
+        userRecord[currentUser].userToDo.push(ToDoItem);
     
-        localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
+        localStorage.setItem('registeredUserRecord', JSON.stringify(userRecord));
     
         if (tempToDoArray.length > 0) {
             document.getElementById('todoTable').style.display = "inline-table";
@@ -92,7 +92,7 @@ function addNewToDoItem() {
         }
     
         clearToDoTable();
-        printToDoTable(tempArray[currentUser].userToDo);
+        printToDoTable(userRecord[currentUser].userToDo);
         document.getElementById("addToDo").reset();
     } 
 }
@@ -133,9 +133,9 @@ function showCurrentUserToDo() {
         return;
     }
 
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = tempArray[currentUser].userToDo;
+    let tempToDoArray = userRecord[currentUser].userToDo;
 
     if(tempToDoArray.length == 0){
         document.getElementById('todoTable').style.display = "none";
@@ -150,7 +150,7 @@ function showCurrentUserToDo() {
 
 function editToDoItem() {
 
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let selectedItemArray = document.getElementsByName('selectedItem');
 
@@ -159,7 +159,7 @@ function editToDoItem() {
     let editItem = 0;
 
 
-    for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+    for (index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
 
         if (selectedItemArray[index].checked === true) {
             flag++;
@@ -169,22 +169,22 @@ function editToDoItem() {
 
     if (flag == 1) {
         if (selectedItemArray[editItem].checked === true) {
-            document.getElementById('toDoTitle').value = tempArray[currentUser].userToDo[editItem].title;
-            document.getElementById('startDate').value = tempArray[currentUser].userToDo[editItem].startDate;
-            document.getElementById('dueDate').value = tempArray[currentUser].userToDo[editItem].dueDate;
+            document.getElementById('toDoTitle').value = userRecord[currentUser].userToDo[editItem].title;
+            document.getElementById('startDate').value = userRecord[currentUser].userToDo[editItem].startDate;
+            document.getElementById('dueDate').value = userRecord[currentUser].userToDo[editItem].dueDate;
 
-            if ((tempArray[currentUser].userToDo[editItem].isPublic) == "No") {
+            if ((userRecord[currentUser].userToDo[editItem].isPublic) == "No") {
                 document.getElementById("isToDoPublic").checked = false;
             }
             else {
                 document.getElementById("isToDoPublic").checked = true;
             }
 
-            if ((tempArray[currentUser].userToDo[editItem].catogory) == "Home") {
+            if ((userRecord[currentUser].userToDo[editItem].catogory) == "Home") {
                 document.getElementsByName("categories")[0].checked = true;
             }
 
-            else if ((tempArray[currentUser].userToDo[editItem].catogory) == "Personal") {
+            else if ((userRecord[currentUser].userToDo[editItem].catogory) == "Personal") {
                 document.getElementsByName("categories")[1].checked = true;
             }
 
@@ -192,7 +192,7 @@ function editToDoItem() {
                 document.getElementsByName("categories")[2].checked = true;
             }
 
-            document.getElementById('description').value = tempArray[currentUser].userToDo[editItem].description;
+            document.getElementById('description').value = userRecord[currentUser].userToDo[editItem].description;
             document.getElementById('add').style.display = "none";
             document.getElementById('delete').disabled = true;
             document.getElementById('markAsDone').disabled = true;
@@ -226,59 +226,59 @@ function saveChanges() {
         document.getElementById('alertUser').innerHTML = "";
 
         let index = sessionStorage.getItem('EditedItemIndex');
-        let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+        let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
         let currentUser = sessionStorage.getItem('activeUserId');
 
-        tempArray[currentUser].userToDo[index].title = title;
-        tempArray[currentUser].userToDo[index].startDate = sDate;
-        tempArray[currentUser].userToDo[index].dueDate = dDate;
+        userRecord[currentUser].userToDo[index].title = title;
+        userRecord[currentUser].userToDo[index].startDate = sDate;
+        userRecord[currentUser].userToDo[index].dueDate = dDate;
 
         if (document.getElementById("isToDoPublic").checked == true) {
-            tempArray[currentUser].userToDo[index].isPublic = "Yes";
+            userRecord[currentUser].userToDo[index].isPublic = "Yes";
         }
         else {
-            tempArray[currentUser].userToDo[index].isPublic = "No";
+            userRecord[currentUser].userToDo[index].isPublic = "No";
         }
 
         if (document.getElementsByName("categories")[0].checked == true) {
-            tempArray[currentUser].userToDo[index].catogory = "Home";
+            userRecord[currentUser].userToDo[index].catogory = "Home";
         }
 
         else if (document.getElementsByName("categories")[1].checked == true) {
-            tempArray[currentUser].userToDo[index].catogory = "Personal";
+            userRecord[currentUser].userToDo[index].catogory = "Personal";
         }
 
         else {
-            tempArray[currentUser].userToDo[index].catogory = "Office";
+            userRecord[currentUser].userToDo[index].catogory = "Office";
         }
 
-        tempArray[currentUser].userToDo[index].description = todoDescription;
-        localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
+        userRecord[currentUser].userToDo[index].description = todoDescription;
+        localStorage.setItem("registeredUserRecord", JSON.stringify(userRecord));
         sessionStorage.removeItem('EditedItemIndex');
         document.getElementById('addToDo').reset();
         document.getElementById('save').style.display = "none";
         document.getElementById('add').style.display = "inline-block";
         clearToDoTable();
-        printToDoTable(tempArray[currentUser].userToDo);
+        printToDoTable(userRecord[currentUser].userToDo);
     }
 }
 
 function updateToDoItemStatus() {
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = tempArray[currentUser].userToDo;
+    let tempToDoArray = userRecord[currentUser].userToDo;
     let selectedItemArray = document.getElementsByName('selectedItem');
 
     let flag = 0;
     let index = 0;
     let selectedItem = 0;
 
-    for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+    for (index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
 
         if (selectedItemArray[index].checked === true) {
             flag++;
             selectedItem = index;
-            tempArray[currentUser].userToDo[selectedItem].status = "Done";
+            userRecord[currentUser].userToDo[selectedItem].status = "Done";
         }
     }
 
@@ -287,7 +287,7 @@ function updateToDoItemStatus() {
     }
 
     else {
-        localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
+        localStorage.setItem('registeredUserRecord', JSON.stringify(userRecord));
         clearToDoTable();
         printToDoTable(tempToDoArray);
     }
@@ -295,21 +295,21 @@ function updateToDoItemStatus() {
 }
 
 function deleteToDoItem() {
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let selectedItemArray = document.getElementsByName('selectedItem');
-    let tempToDoArray = tempArray[currentUser].userToDo;
+    let tempToDoArray = userRecord[currentUser].userToDo;
 
     let flag = 0;
     let index = 0;
     let selectedItem = 0;
 
-    for (index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
+    for (index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
 
         if (selectedItemArray[index].checked === true) {
             flag++;
             selectedItem = index;
-            tempArray[currentUser].userToDo.splice(selectedItem, 1);
+            userRecord[currentUser].userToDo.splice(selectedItem, 1);
         }
     }
 
@@ -318,7 +318,7 @@ function deleteToDoItem() {
     }
 
     else {
-        localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
+        localStorage.setItem('registeredUserRecord', JSON.stringify(userRecord));
         clearToDoTable();
         printToDoTable(tempToDoArray);
     }
@@ -349,32 +349,32 @@ function setFilterValues(category, status, date) {
 }
 
 function filterItemsByStatus() {
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let itemsToDisplay = new Array();
 
     let filterType = document.getElementById('filterByStatus');
     let filterName = filterType.options[filterType.selectedIndex].value;
 
-        for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
-            if (tempArray[currentUser].userToDo[index].status == filterName) {
-                itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+        for (let index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
+            if (userRecord[currentUser].userToDo[index].status == filterName) {
+                itemsToDisplay.push(userRecord[currentUser].userToDo[index]);
             }
         }
         filterResultData(itemsToDisplay);  
 }
 
 function filterItemsByCategories() {
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let itemsToDisplay = new Array();
 
     let filterType = document.getElementById('filterByCategories');
     let filterName = filterType.options[filterType.selectedIndex].value;
 
-    for (let index = (tempArray[currentUser].userToDo.length - 1); index >= 0; index--) {
-        if (tempArray[currentUser].userToDo[index].catogory == filterName) {
-            itemsToDisplay.push(tempArray[currentUser].userToDo[index]);
+    for (let index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
+        if (userRecord[currentUser].userToDo[index].catogory == filterName) {
+            itemsToDisplay.push(userRecord[currentUser].userToDo[index]);
         }
     }
     
@@ -383,9 +383,9 @@ function filterItemsByCategories() {
 
 function filterByDateRange() {
 
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = tempArray[currentUser].userToDo;
+    let tempToDoArray = userRecord[currentUser].userToDo;
 
     let sDate = document.getElementById('filterStartDate').value;
     let dDate = document.getElementById('filterDueDate').value;

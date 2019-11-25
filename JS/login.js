@@ -1,10 +1,7 @@
 function validateCredentials(){
     let emailId = document.getElementById('email').value;
-    let passwd = document.getElementById('password').value;
-
-    fetchUserDetails(emailId,passwd);
-    let allowUser = fetchUserDetails(emailId,passwd);
-
+    let password = document.getElementById('password').value;
+    let allowUser = fetchUserDetails(emailId,password);
     if(allowUser == true){
         window.location = '../html/todo.html';
     }
@@ -13,57 +10,58 @@ function validateCredentials(){
     }
 }
 
-function fetchUserDetails(emailId,passwd){
-
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
-
-    if(tempArray == null){
-        document.getElementById('noRecordFound').innerHTML = "No Record Found..!!";
+function fetchUserDetails(emailId,password){
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    if(userRecord == null){
+        alertUser('noRecordFound',"No Record Found..!!");
         return false;
     }
-
     else{
-        let flag  = true;
-        let index = 0;
-
-        for(index=0;index<tempArray.length;index++){
-
-            if(tempArray[index].userEmail == emailId){
-
-                let decryptedPassword = atob(tempArray[index].userPassword);
-
-                if(decryptedPassword == passwd){
-                    sessionStorage.setItem('activeUserId', index);
-                    flag = true;
-                    break;
-                }
-                else if(decryptedPassword != passwd){
-                    document.getElementById('wrongpass').innerHTML = "Wrong password.Try again..!!";
-                    flag = false;
-                    break;
-                }
-            }
-            else{
-                flag = false;
-            }
-            
-        }
-
-        if((index == tempArray.length) && flag == false){
-            document.getElementById('noRecordFound').innerHTML = "No Record Found..!!";
-            document.getElementById('email').value = "";
-            document.getElementById('password').value = "";
-            return false;
-        }
-        else if(flag == false){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return authenticateUser(userRecord,emailId,password);
     }
 }
 
+function authenticateUser(userRecord,emailId,password){
+    let flag  = true;
+    let index = 0;
+
+    for(index=0;index<userRecord.length;index++){
+        if(userRecord[index].userEmail == emailId){
+            let decryptedPassword = atob(userRecord[index].userPassword);
+            if(decryptedPassword == password){
+                sessionStorage.setItem('activeUserId', index);
+                flag = true;
+                break;
+            }
+            else if(decryptedPassword != password){
+                alertUser('wrongpass',"Wrong password.Try again..!!");
+                document.getElementById('password').value = "";
+                flag = false;
+                break;
+            }
+        }
+        else{
+            flag = false;
+        }   
+    }
+
+    if((index == userRecord.length) && flag == false){
+        alertUser('noRecordFound',"No Record Found..!!");
+        document.getElementById('email').value = "";
+        document.getElementById('password').value = "";
+        return false;
+    }
+    else if(flag == false){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function alertUser(elementId,message){
+    document.getElementById(elementId).innerHTML = message;
+}
 
 (function (){
     document.addEventListener('keypress',function(event){

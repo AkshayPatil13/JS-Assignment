@@ -8,26 +8,23 @@ function showCurrentUserInfo(){
         window.location = "../html/login.html";
         return;
     }
-    let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     
-   
-    document.getElementById('fName').value = tempArray[currentUser].userFirstName;
-    document.getElementById('lName').value = tempArray[currentUser].userLastName;
-    document.getElementById('email').value = tempArray[currentUser].userEmail;
-    document.getElementById('password').value = atob(tempArray[currentUser].userPassword);
-    document.getElementById('address').value = tempArray[currentUser].UserAddress;
-    document.getElementById('userPic').src = tempArray[currentUser].displayPicture;
+    document.getElementById('fName').value = userRecord[currentUser].userFirstName;
+    document.getElementById('lName').value = userRecord[currentUser].userLastName;
+    document.getElementById('email').value = userRecord[currentUser].userEmail;
+    document.getElementById('password').value = atob(userRecord[currentUser].userPassword);
+    document.getElementById('address').value = userRecord[currentUser].UserAddress;
+    document.getElementById('userPic').src = userRecord[currentUser].displayPicture;
 
-    if((tempArray[currentUser].userGender) == 'male'){
+    if((userRecord[currentUser].userGender) == 'male'){
         document.getElementsByName("gender")[0].checked = true;
     }
-    
-    else  if((tempArray[currentUser].userGender) == 'female'){
+    else  if((userRecord[currentUser].userGender) == 'female'){
         document.getElementsByName("gender")[1].checked = true;
     }
-
-    else  if((tempArray[currentUser].userGender) == 'other'){
+    else  if((userRecord[currentUser].userGender) == 'other'){
         document.getElementsByName("gender")[2].checked = true;
     }
 }
@@ -35,32 +32,35 @@ function showCurrentUserInfo(){
 function updateUserData(){
     let firstName = document.getElementById("fName").value;
     let lastName = document.getElementById("lName").value;
-    let passwd = document.getElementById("password").value;
+    let password = document.getElementById("password").value;
     let genderType = document.querySelector('input[name="gender"]:checked').value;
     let address = document.getElementById("address").value;
 
-    if((firstName == "") || (lastName == "") || (passwd == "") || (address == "")){
+    if((firstName == "") || (lastName == "") || (password == "") || (address == "")){
         alert("Please fill out all the Fields..!!");
         return false;
     }
     else{
-        let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
-        let currentUser = sessionStorage.getItem('activeUserId');
-        let tempToDoArray = tempArray[currentUser].userToDo;
-
-        tempArray[currentUser].userFirstName = firstName;
-        tempArray[currentUser].userLastName = lastName;
-        tempArray[currentUser].userPassword = btoa(passwd);
-        tempArray[currentUser].userGender = genderType;
-        tempArray[currentUser].UserAddress = address;
-        tempArray[currentUser].userToDo = tempToDoArray;
-        tempArray[currentUser].displayPicture = sessionStorage.displayPicture;
-
-        localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
-        alert('Your changes has been saved successfully..!!');
-        sessionStorage.removeItem('displayPicture');
-        window.location.reload();
+        updateProfile(firstName,lastName,password,genderType,address);
     }
+}
 
+function updateProfile(firstName,lastName,password,genderType,address){
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let tempToDoArray = userRecord[currentUser].userToDo;
+
+    userRecord[currentUser].userFirstName = firstName;
+    userRecord[currentUser].userLastName = lastName;
+    userRecord[currentUser].userPassword = btoa(password);
+    userRecord[currentUser].userGender = genderType;
+    userRecord[currentUser].UserAddress = address;
+    userRecord[currentUser].userToDo = tempToDoArray;
+    userRecord[currentUser].displayPicture = sessionStorage.displayPicture;
+
+    localStorage.setItem("registeredUserRecord", JSON.stringify(userRecord));
+    alert('Your changes has been saved successfully..!!');
+    sessionStorage.removeItem('displayPicture');
+    window.location.reload();
 }
 
