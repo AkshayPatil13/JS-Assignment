@@ -1,4 +1,3 @@
-
 function validate(elementId, inputData, pattern, errorMsgId, errorMsg) {
     if (inputData.match(pattern) || (inputData == "")) {
         document.getElementById(errorMsgId).innerHTML = " ";
@@ -7,7 +6,6 @@ function validate(elementId, inputData, pattern, errorMsgId, errorMsg) {
     else {
         document.getElementById(errorMsgId).innerHTML = errorMsg;
         elementId.value = "";
-        // elementId.style.borderColor = "#FF0000";
         elementId.focus();
         return false;
     }

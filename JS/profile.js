@@ -19,31 +19,17 @@ function showCurrentUserInfo(){
     document.getElementById('address').value = tempArray[currentUser].UserAddress;
     document.getElementById('userPic').src = tempArray[currentUser].displayPicture;
 
-    if(tempArray[currentUser].genderType == 'male'){
+    if((tempArray[currentUser].userGender) == 'male'){
         document.getElementsByName("gender")[0].checked = true;
     }
     
-    else  if(tempArray[currentUser].genderType == 'female'){
+    else  if((tempArray[currentUser].userGender) == 'female'){
         document.getElementsByName("gender")[1].checked = true;
     }
 
-    else  if(tempArray[currentUser].genderType == 'other'){
-        document.getElementsByName("gender")[1].checked = true;
+    else  if((tempArray[currentUser].userGender) == 'other'){
+        document.getElementsByName("gender")[2].checked = true;
     }
-}
-
-function enableInputFields(){
-
-    document.getElementById('fName').disabled = false;
-    document.getElementById('lName').disabled = false;
-    document.getElementById('password').disabled = false;
-    document.getElementById('profilePicture').disabled = false;
-    document.getElementById('address').disabled = false;
-    document.getElementById('submit').disabled = false;
-    for(let i=0;i<document.getElementsByName("gender").length;i++){
-        document.getElementsByName("gender")[i].disabled = false;
-    }
-
 }
 
 function updateUserData(){

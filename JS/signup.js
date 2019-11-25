@@ -1,4 +1,3 @@
-
 function checkMandatoryFields() {
 
     let firstName = document.getElementById("fName").value;
@@ -14,11 +13,9 @@ function checkMandatoryFields() {
         return false;
     }
     else {
-        // store User Data
         let userData = StoreItems(firstName, lastName, address, emailId, passwd, genderType);
 
         if (userData == true) {
-            console.log('inside redirecting..');
             alert("Registered Successfully..!!");
             sessionStorage.removeItem("displayPicture");
             window.location = '../html/login.html';
@@ -26,12 +23,6 @@ function checkMandatoryFields() {
 
         function StoreItems(firstName, lastName, address, emailId, passwd, genderType) {
             let ToDoList = new Array();
-
-            // if (sessionStorage.getItem('displayPicture') === null) {
-            //     alert("Please upload your profile picture");
-            //     return false;
-            // }
-
             let encryptedPassword = btoa(passwd);
             let profilePicture = sessionStorage.displayPicture;
 

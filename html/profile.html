@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agenda | Profile</title>
+        <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
+        <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Agenda | Profile</title>
-    <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
-    <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-</head>
+    <body onload="showCurrentUserInfo()">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="./todo.html">My ToDo Items</a></li>
+                    <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
+                    <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <div class="clearfix"></div>
+        </header>
+        
+        <div class="form-container">
+            <form>
+                <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
+                <div class="profile-upload">
+                    Profile Image :<input id="profilePicture" type="file" accept="image/*" onchange="UploadProfilePicture();">
+                </div>
 
-<body onload="showCurrentUserInfo()">
-    <header>
-        <nav>
-            <ul>
-                <li><a href="./todo.html">My ToDo Items</a></li>
-                <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
-                <div class="clearfix"></div>
-            </ul>
-        </nav>
-        <div class="clearfix"></div>
-    </header>
-    <div class="form-container">
-        <form>
-            <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
-            <div class="profile-upload">Profile Image :<input id="profilePicture" type="file" accept="image/*"
-                    onchange="UploadProfilePicture();" disabled>
-            </div>
+                <input id="fName" type="text" placeholder="First Name" onfocusout="validateCharactersOnly(this, 'wrongfname')" >
+                <p class="error" id='wrongfname'></p>
 
-            <input id="fName" type="text" placeholder="First Name"
-                onfocusout="validateCharactersOnly(this, 'wrongfname')" disabled>
-            <p class="error" id='wrongfname'></p>
+                <input id="lName" type="text" placeholder="Last Name" onfocusout="validateCharactersOnly(this, 'wronglname')" >
+                <p class="error" id='wronglname'></p>
 
-            <input id="lName" type="text" placeholder="Last Name"
-                onfocusout="validateCharactersOnly(this, 'wronglname')" disabled>
-            <p class="error" id='wronglname'></p>
+                <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')" disabled>
+                <p class="error" id='wrongemail'></p>
 
-            <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')"
-                disabled>
-            <p class="error" id='wrongemail'></p>
+                <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')">
+                <p class="error" id='wrongpass'></p>
 
-            <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')"
-                disabled>
-            <p class="error" id='wrongpass'></p>
+                Gender :&nbsp;<input type="radio" name="gender" value="male"><label>Male</label>
+                <input type="radio" name="gender" value="female"><label>Female</label>
+                <input type="radio" name="gender" value="other"><label>Other</label>
 
-            Gender :&nbsp;<input type="radio" name="gender" value="male" checked disabled><label>Male</label>
-            <input type="radio" name="gender" value="female" disabled><label>Female</label>
-            <input type="radio" name="gender" value="other" disabled><label>Other</label>
+                <input id="address" type="textarea" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')">
+                <p class="error" id='wrongaddress'></p>
 
-            <input id="address" type="textarea" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')"
-                disabled>
-            <p class="error" id='wrongaddress'></p>
+                <button id="submit" type="button" class="btn-style" onclick="updateUserData()">Save Changes</button>
+            </form>
+        </div>
 
-            <button type="button" class="btn-style" onclick="enableInputFields()">Edit</button>
-            <button id="submit" type="button" class="btn-style" onclick="updateUserData()" disabled>Submit</button>
-        </form>
-    </div>
+        <script src="../JS/inputValidation.js"></script>
+        <script src="../JS/profile.js"></script>
 
-    <script src="../JS/inputValidation.js"></script>
-    <script src="../JS/profile.js"></script>
-</body>
-
+    </body>
 </html>

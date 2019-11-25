@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agenda | Sign Up</title>
+        <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
+        <link rel="stylesheet" href="../CSS/signup.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Agenda | Sign Up</title>
-    <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
-    <link rel="stylesheet" href="../CSS/signup.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-</head>
+    <body>
+        <img class="logo" src="../images/logo.png" alt="logo">
 
-<body>
-    <img class="logo" src="../images/logo.png" alt="logo">
-    <div class="form-container">
-        <h1>Sign up to Agenda</h1>
-        <form>
-            <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
-            <p id="mandatory" class="error">Asterisk(*) indicates mandatory fields.</p>
-            <div class="profile-upload">Upload Profile Image :<input id="profilePicture" type="file" accept="image/*"
-                    onchange="UploadProfilePicture();">
-            </div>
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
-            <input id="fName" type="text" placeholder="First Name"
-                onfocusout="validateCharactersOnly(this, 'wrongfname')" required>
-            <p class="error" id='wrongfname'></p>
+        <div class="form-container">
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
-            <input id="lName" type="text" placeholder="Last Name"
-                onfocusout="validateCharactersOnly(this, 'wronglname')" required>
-            <p class="error" id='wronglname'></p>
+            <h1>Sign up to Agenda</h1>
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
-            <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')"
-                required>
-            <p class="error" id='wrongemail'></p>
+            <form>
+                <img id="userPic" class="user-image" src="../images/Profile.png" alt="Profile Image">
 
-            <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
-            <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')"
-                required>
-            <p class="error" id='wrongpass'></p>
+                <p id="mandatory" class="error">Asterisk(*) indicates mandatory fields.</p>
 
-            <input id="confirmPassword" type="password" placeholder="Confirm Password"
-                onfocusout="validateconfPassword(this,'wrongconfpass')" required>
-            <p class="error" id='wrongconfpass'></p>
+                <div class="profile-upload">
+                    Upload Profile Image :<input id="profilePicture" type="file" accept="image/*" onchange="UploadProfilePicture();">
+                </div>
 
-            Gender :&nbsp;<input type="radio" name="gender" value="male" checked><label>Male</label>
-            <input type="radio" name="gender" value="female"><label>Female</label>
-            <input type="radio" name="gender" value="other"><label>Other</label>
+                <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+                <input id="fName" type="text" placeholder="First Name" onfocusout="validateCharactersOnly(this, 'wrongfname')" required>
+                <p class="error" id='wrongfname'></p>
 
-            <input id="address" type="text" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')"
-                required>
-            <p class="error" id='wrongaddress'></p>
+                <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+                <input id="lName" type="text" placeholder="Last Name" onfocusout="validateCharactersOnly(this, 'wronglname')" required>
+                <p class="error" id='wronglname'></p>
 
-            <button type="button" class="btn-style" onclick="checkMandatoryFields();">Sign Up</button>
-            
-        </form>
-    </div>
-    <script src="../JS/inputValidation.js"></script>
-    <script src="../JS/signup.js"></script>
-</body>
+                <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+                <input id="email" type="email" placeholder="Email Address" onfocusout="validateUserEmail(this,'wrongemail')" required>
+                <p class="error" id='wrongemail'></p>
 
+                <i class="fa fa-asterisk" style="font-size:x-small;color:#d93025;position:relative;left:100%;top:3px;"></i>
+                <input id="password" type="password" placeholder="Password" onfocusout="validatePassword(this,'wrongpass')" required>
+                <p class="error" id='wrongpass'></p>
+
+                <input id="confirmPassword" type="password" placeholder="Confirm Password" onfocusout="validateconfPassword(this,'wrongconfpass')" required>
+                <p class="error" id='wrongconfpass'></p>
+
+                Gender :&nbsp;<input type="radio" name="gender" value="male" checked><label>Male</label>
+                <input type="radio" name="gender" value="female"><label>Female</label>
+                <input type="radio" name="gender" value="other"><label>Other</label>
+
+                <input id="address" type="text" placeholder="Address" onfocusout="validateAddress(this,'wrongaddress')" required>
+                <p class="error" id='wrongaddress'></p>
+
+                <button type="button" class="btn-style" onclick="checkMandatoryFields();">Sign Up</button>
+            </form>
+        </div>
+
+        <script src="../JS/inputValidation.js"></script>
+        <script src="../JS/signup.js"></script>
+        
+    </body>
 </html>

@@ -1,114 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agenda | ToDo</title>
+        <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
+        <link rel="stylesheet" href="../CSS/todo.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Agenda | ToDo</title>
-    <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
-    <link rel="stylesheet" href="../CSS/todo.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-</head>
+    <body onload="showCurrentUserToDo()">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href='javascript:;' onclick="showDashboard(); showCurrentUserToDo();">My ToDo List</a></li>
+                    <li><a href="./profile.html">My Profile</a></li>
+                    <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
+                    <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <div class="clearfix"></div>
+        </header>
 
-<body onload="showCurrentUserToDo()">
-    <header>
-        <nav>
-            <ul>
-                <li><a href='javascript:;' onclick="showDashboard(); showCurrentUserToDo();">My ToDo List</a></li>
-                <li><a href="./profile.html">My Profile</a></li>
-                <li><a href="#" onclick="logOutUserSession()">Logout</a></li>
-                <div class="clearfix"></div>
-            </ul>
-        </nav>
-        <div class="clearfix"></div>
-    </header>
+        <div class="left-section">
 
-    <div class="left-section">
-        <p id="filterError" class="error"></p>
-        <label>Filter By :</label>
-        <select class="filter" name="filters" id="filterBy" onchange="showFurtherFilters()">
-            <option value="select">Select</option>
-            <option value="Categories">Categories</option>
-            <option value="Status">Status</option>
-            <option value="Date">Date</option>
-        </select>
+            <p id="filterError" class="error"></p>
 
-        <select name="filters" id="filterByStatus" onchange="filterItemsByStatus()">
-            <option value="select" selected>Select</option>
-            <option value="Done">isDone</option>
-            <option value="pending">isPending</option>
-        </select>
+            <label>Filter By :</label>
+            <select class="filter" name="filters" id="filterBy" onchange="showFurtherFilters()">
+                <option value="select">Select</option>
+                <option value="Categories">Categories</option>
+                <option value="Status">Status</option>
+                <option value="Date">Date</option>
+            </select>
 
-        <select name="filters" id="filterByCategories" onchange="filterItemsByCategories()">
-            <option value="select" selected>Select</option>
-            <option value="Home">Home</option>
-            <option value="Personal">Personal</option>
-            <option value="Office">Office</option>
-        </select>
+            <select name="filters" id="filterByStatus" onchange="filterItemsByStatus()">
+                <option value="select" selected>Select</option>
+                <option value="Done">isDone</option>
+                <option value="pending">isPending</option>
+            </select>
 
-        <div class="date-filters" id="filterByDate">
-            <label>From :</label>
-            <input type="date" id="filterStartDate" required>
+            <select name="filters" id="filterByCategories" onchange="filterItemsByCategories()">
+                <option value="select" selected>Select</option>
+                <option value="Home">Home</option>
+                <option value="Personal">Personal</option>
+                <option value="Office">Office</option>
+            </select>
 
-            <label>To :</label>
-            <input type="date" id="filterDueDate" required>
+            <div class="date-filters" id="filterByDate">
+                <label>From :</label>
+                <input type="date" id="filterStartDate" required>
 
-            <button type="button" id="filterByDate" class="search" onclick="filterByDateRange()">Search</button>
-        </div>
+                <label>To :</label>
+                <input type="date" id="filterDueDate" required>
 
-        <div id="operations">
-            <button type="button" id="edit" class="edit" onclick="editToDoItem()">Edit</button>
-            <button type="button" id="delete" class="delete" onclick="deleteToDoItem()">Delete</button>
-            <button type="button" id="markAsDone" class="mark-as-done" onclick="updateToDoItemStatus()">Mark as Done</button>
-        </div>
-
-        <h1 id="noDataFound">No Data Found..!!</h1>
-        <table class="todo-table" id="todoTable">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>Title</th>
-                    <th>Start Date</th>
-                    <th>Due Date</th>
-                    <th>is Public</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody id="todoBody"></tbody>
-        </table>
-    </div>
-
-    <div class="right-section">
-        <span class="error" id="alertUser"></span>
-        <form id="addToDo">
-            <input type="text" placeholder="Title.." id="toDoTitle" required><br>
-            <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)"
-                required><br>
-            <label>Due Date : </label> <input id="dueDate" type="date" onclick="disablePreviousDates(this.id)"
-                required><br>
-
-            <div class="public">
-                <label>is Public :</label>
-                <input type="checkbox" id="isToDoPublic">
+                <button type="button" id="filterByDate" class="search" onclick="filterByDateRange()">Search</button>
             </div>
 
-            <label>Categories :</label>
-            <input type="radio" name="categories" value="Home" checked>Home
-            <input type="radio" name="categories" value="Personal">Personal
-            <input type="radio" name="categories" value="Office">Office
+            <div id="operations">
+                <button type="button" id="edit" class="edit" onclick="editToDoItem()">Edit</button>
+                <button type="button" id="delete" class="delete" onclick="deleteToDoItem()">Delete</button>
+                <button type="button" id="markAsDone" class="mark-as-done" onclick="updateToDoItemStatus()">Mark as Done</button>
+            </div>
 
-            <textarea id="description" rows="10" placeholder="Add description here..."></textarea><br>
+            <h1 id="noDataFound">No Data Found..!!</h1>
+            <table class="todo-table" id="todoTable">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Title</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
+                        <th>is Public</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-            <button type="button" id="add" class="add" onclick="addNewToDoItem()">Add</button>
-            <button class="update-data" type="button" id="save" onclick="saveChanges()">Save Changes</button>
-            <button type="reset" class="reset">Reset</button>
-        </form>
-    </div>
-    <div class="clearfix"></div>
+                <tbody id="todoBody"></tbody>
+            </table>
+        </div>
 
-    <script src="../JS/todo.js"></script>
-</body>
+        <div class="right-section">
 
+            <span class="error" id="alertUser"></span>
+
+            <form id="addToDo">
+
+                <input type="text" placeholder="Title.." id="toDoTitle" required><br>
+                <label>Start Date : </label> <input id="startDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
+                <label>Due Date : </label> <input id="dueDate" type="date" onclick="disablePreviousDates(this.id)" required><br>
+
+                <div class="public">
+                    <label>is Public :</label>
+                    <input type="checkbox" id="isToDoPublic">
+                </div>
+
+                <label>Categories :</label>
+                <input type="radio" name="categories" value="Home" checked>Home
+                <input type="radio" name="categories" value="Personal">Personal
+                <input type="radio" name="categories" value="Office">Office
+
+                <textarea id="description" rows="10" placeholder="Add description here..."></textarea><br>
+
+                <button type="button" id="add" class="add" onclick="addNewToDoItem()">Add</button>
+                <button class="update-data" type="button" id="save" onclick="saveChanges()">Save Changes</button>
+                <button type="reset" class="reset">Reset</button>
+            </form>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <script src="../JS/todo.js"></script>
+
+    </body>
 </html>

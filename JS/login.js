@@ -1,5 +1,3 @@
-
-
 function validateCredentials(){
     let emailId = document.getElementById('email').value;
     let passwd = document.getElementById('password').value;
@@ -71,7 +69,6 @@ function fetchUserDetails(emailId,passwd){
     document.addEventListener('keypress',function(event){
         if(event.keyCode == 13)
         {
-            // event.preventDefault();
             validateCredentials();
         }
     })

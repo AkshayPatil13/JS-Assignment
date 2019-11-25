@@ -16,15 +16,8 @@ function disablePreviousDates(elementId) {
     dateInput.setAttribute('min', dateStr);
 }
 
-// function checkEmptyList(arr) {
-//     if (arr.length == 0) {
-
-//         document.getElementById('todoTable').style.display = "none";
-//         document.getElementById('noDataFound').style.display = "block";
-//     }
-// }
-
 function validateToDoData(title,sDate,dDate,tempstartDate,tempdueDate,todoDescription){
+
     if (title == "") {
         document.getElementById('alertUser').innerHTML = "Please enter Title for ToDo Item..!!";
         return false;
@@ -65,30 +58,7 @@ function addNewToDoItem() {
     let tempstartDate = new Date(sDate);
     let tempdueDate = new Date(dDate);
 
-    // if (title == "") {
-    //     document.getElementById('alertUser').innerHTML = "Please enter Title for ToDo Item..!!";
-    //     return;
-    // }
-
-    // if (sDate == "") {
-    //     document.getElementById('alertUser').innerHTML = "Please set the start date..!!";
-    //     return;
-    // }
-
-    // if (dDate == "") {
-    //     document.getElementById('alertUser').innerHTML = "Please set the due date..!!";
-    //     return;
-    // }
-
-    // if (tempdueDate.getTime() < tempstartDate.getTime()) {
-    //     document.getElementById('alertUser').innerHTML = "Due date should come after the start date..!!";
-    //     return;
-    // }
-
-    // if (todoDescription == "") {
-    //     document.getElementById('alertUser').innerHTML = "Please enter the description for ToDo Item..!!";
-    //     return;
-    // }
+ 
     let allowInsertion = validateToDoData(title,sDate,dDate,tempstartDate,tempdueDate,todoDescription);
 
     if(allowInsertion == true){
@@ -109,6 +79,7 @@ function addNewToDoItem() {
             'catogory': categoryType,
             'description': todoDescription,
             'status': 'pending',
+            'id' : new Date().getTime()
         }
     
         tempArray[currentUser].userToDo.push(ToDoItem);
@@ -140,6 +111,7 @@ function clearToDoTable() {
 function printToDoTable(arr) {
     for (let i = 0; i < arr.length; i++) {
         let newToDoItem = document.createElement("tr");
+        newToDoItem.setAttribute("id","row-" + arr[i].id);
         newToDoItem.innerHTML = "<td>" + "<input name='selectedItem' type='checkbox' value='yes' id='checkbox-" + arr[i].id + "' </td>" +
             "<td>" + arr[i].title + "</td>" +
             "<td>" + arr[i].startDate + "</td>" +
@@ -173,7 +145,6 @@ function showCurrentUserToDo() {
         clearToDoTable();
         printToDoTable(tempToDoArray);
     }
-    // checkEmptyList(tempToDoArray);
 }
 
 
@@ -258,9 +229,9 @@ function saveChanges() {
         let tempArray = JSON.parse(localStorage.getItem('registeredUserRecord'));
         let currentUser = sessionStorage.getItem('activeUserId');
 
-        tempArray[currentUser].userToDo[index].title = title;//document.getElementById('toDoTitle').value;
-        tempArray[currentUser].userToDo[index].startDate = sDate;//document.getElementById('startDate').value;
-        tempArray[currentUser].userToDo[index].dueDate = dDate;//document.getElementById('dueDate').value;
+        tempArray[currentUser].userToDo[index].title = title;
+        tempArray[currentUser].userToDo[index].startDate = sDate;
+        tempArray[currentUser].userToDo[index].dueDate = dDate;
 
         if (document.getElementById("isToDoPublic").checked == true) {
             tempArray[currentUser].userToDo[index].isPublic = "Yes";
@@ -281,7 +252,6 @@ function saveChanges() {
             tempArray[currentUser].userToDo[index].catogory = "Office";
         }
 
-        // tempArray[currentUser].userToDo[index].description = document.getElementById('description').value;
         tempArray[currentUser].userToDo[index].description = todoDescription;
         localStorage.setItem("registeredUserRecord", JSON.stringify(tempArray));
         sessionStorage.removeItem('EditedItemIndex');
@@ -309,7 +279,6 @@ function updateToDoItemStatus() {
             flag++;
             selectedItem = index;
             tempArray[currentUser].userToDo[selectedItem].status = "Done";
-            // document.getElementById('todoTable').rows[index].style.backgroundColor = "#4bae4f";
         }
     }
 
@@ -319,7 +288,6 @@ function updateToDoItemStatus() {
 
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
-        // window.location.reload();
         clearToDoTable();
         printToDoTable(tempToDoArray);
     }
@@ -351,7 +319,6 @@ function deleteToDoItem() {
 
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(tempArray));
-        // window.location.reload();
         clearToDoTable();
         printToDoTable(tempToDoArray);
     }
@@ -458,7 +425,6 @@ function filterResultData(arr){
 }
 
 function showDashboard(){
-    // window.location.reload();
     document.getElementById('filterBy').selectedIndex = 0;
     document.getElementById('filterByStatus').selectedIndex = 0 ;
     document.getElementById('filterByCategories').selectedIndex = 0;
@@ -469,5 +435,4 @@ function showDashboard(){
     document.getElementById('noDataFound').style.display = "none";
     document.getElementById('add').style.display = "inline-block";
     document.getElementById('save').style.display = "none";
-
 }
