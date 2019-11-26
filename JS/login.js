@@ -1,4 +1,10 @@
-function validateCredentials(){
+(function(){
+    if(sessionStorage.getItem('activeUserId') !== null){
+        window.location = "../html/todo.html";
+    }
+})();
+
+function authenticateUser(){
     let emailId = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let allowUser = fetchUserDetails(emailId,password);
@@ -17,11 +23,11 @@ function fetchUserDetails(emailId,password){
         return false;
     }
     else{
-        return authenticateUser(userRecord,emailId,password);
+        return validateCredentials(userRecord,emailId,password);
     }
 }
 
-function authenticateUser(userRecord,emailId,password){
+function validateCredentials(userRecord,emailId,password){
     let flag  = true;
     let index = 0;
 
@@ -67,7 +73,7 @@ function alertUser(elementId,message){
     document.addEventListener('keypress',function(event){
         if(event.keyCode == 13)
         {
-            validateCredentials();
+            authenticateUser();
         }
     })
 })();

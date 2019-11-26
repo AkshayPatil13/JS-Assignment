@@ -29,7 +29,7 @@ function showCurrentUserInfo(){
     }
 }
 
-function updateUserData(){
+function updateProfile(){
     let firstName = document.getElementById("fName").value;
     let lastName = document.getElementById("lName").value;
     let password = document.getElementById("password").value;
@@ -41,11 +41,11 @@ function updateUserData(){
         return false;
     }
     else{
-        updateProfile(firstName,lastName,password,genderType,address);
+        updateUserData(firstName,lastName,password,genderType,address);
     }
 }
 
-function updateProfile(firstName,lastName,password,genderType,address){
+function updateUserData(firstName,lastName,password,genderType,address){
     let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
     let tempToDoArray = userRecord[currentUser].userToDo;

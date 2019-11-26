@@ -1,3 +1,9 @@
+(function(){
+    if(sessionStorage.getItem('activeUserId') !== null){
+        window.location = "../html/todo.html";
+    }
+})();
+
 function checkMandatoryFields() {
     let firstName = document.getElementById("fName").value;
     let lastName = document.getElementById("lName").value;
