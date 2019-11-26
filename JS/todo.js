@@ -190,7 +190,7 @@ function saveChanges() {
     let allowInsertion = validateToDoData(title,todoStartDate,todoDueDate,tempstartDate,tempdueDate,todoDescription);
 
     if(allowInsertion == true){
-        document.getElementById('inputError').innerHTML = "";
+        alertUser('inputError',"");
         let index = sessionStorage.getItem('EditedItemIndex');
         let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
         let currentUser = sessionStorage.getItem('activeUserId');
@@ -225,24 +225,21 @@ function saveChanges() {
     }
 }
 
-function updateToDoItemStatus() {
-    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
-    let currentUser = sessionStorage.getItem('activeUserId');
-    let tempToDoArray = userRecord[currentUser].userToDo;
+function filter(userRecord,tempToDoArray,action,message){
     let selectedItemArray = document.getElementsByName('selectedItem');
     let flag = 0;
     let index = 0;
     let selectedItem = 0;
 
-    for (index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
+    for (index = (tempToDoArray.length - 1); index >= 0; index--) {
         if (selectedItemArray[index].checked === true) {
             flag++;
             selectedItem = index;
-            userRecord[currentUser].userToDo[selectedItem].status = "Done";
+            action(selectedItem);
         }
     }
     if (flag == 0) {
-        alert('Please select a Todo Item to update its Status..!!');
+        alert(message);
     }
     else {
         localStorage.setItem('registeredUserRecord', JSON.stringify(userRecord));
@@ -251,29 +248,29 @@ function updateToDoItemStatus() {
     }
 }
 
+function updateToDoItemStatus() {
+    let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
+    let currentUser = sessionStorage.getItem('activeUserId');
+    let tempToDoArray = userRecord[currentUser].userToDo;
+    let message = "Please select a Todo Item to update its Status..!!";
+
+    filter(userRecord,tempToDoArray,action,message);
+
+    function action(selectedItem){
+        tempToDoArray[selectedItem].status = "Done";
+    }
+}
+
 function deleteToDoItem() {
     let userRecord = JSON.parse(localStorage.getItem('registeredUserRecord'));
     let currentUser = sessionStorage.getItem('activeUserId');
-    let selectedItemArray = document.getElementsByName('selectedItem');
     let tempToDoArray = userRecord[currentUser].userToDo;
-    let flag = 0;
-    let index = 0;
-    let selectedItem = 0;
+    let message = "Please select a Todo Item to delete..!!";
 
-    for (index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
-        if (selectedItemArray[index].checked === true) {
-            flag++;
-            selectedItem = index;
-            userRecord[currentUser].userToDo.splice(selectedItem, 1);
-        }
-    }
-    if (flag == 0) {
-        alert('Please select a Todo Item to delete..!!');
-    }
-    else {
-        localStorage.setItem('registeredUserRecord', JSON.stringify(userRecord));
-        clearToDoTable();
-        printToDoTable(tempToDoArray);
+    filter(userRecord,tempToDoArray,action,message);
+
+    function action(selectedItem){
+        tempToDoArray.splice(selectedItem, 1);
     }
 }
 
@@ -305,12 +302,12 @@ function filterItemsByStatus() {
     let filterType = document.getElementById('filterByStatus');
     let filterName = filterType.options[filterType.selectedIndex].value;
 
-        for (let index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
-            if (userRecord[currentUser].userToDo[index].status == filterName) {
-                itemsToDisplay.push(userRecord[currentUser].userToDo[index]);
-            }
+    for (let index = (userRecord[currentUser].userToDo.length - 1); index >= 0; index--) {
+        if (userRecord[currentUser].userToDo[index].status == filterName) {
+            itemsToDisplay.push(userRecord[currentUser].userToDo[index]);
         }
-        filterResultData(itemsToDisplay);  
+    }
+    filterResultData(itemsToDisplay);  
 }
 
 function filterItemsByCategories() {
@@ -339,11 +336,10 @@ function filterByDateRange() {
     let tempdueDate = new Date(todoDueDate);
 
     if (tempdueDate.getTime() < tempstartDate.getTime()) {
-        document.getElementById('filterError').innerHTML = "Due date should come after the start date..!!";
+        alertUser('filterError', "Due date should come after the start date..!!");
         return;
     }
-    document.getElementById('filterError').innerHTML = "";
-
+    alertUser('filterError',"");
     for (let index = (tempToDoArray.length - 1); index >= 0; index--) {
         let todoStartDate = new Date(tempToDoArray[index].startDate);
         if ((todoStartDate.getTime() >= tempstartDate.getTime()) && (todoStartDate.getTime() <= tempdueDate.getTime())) {
